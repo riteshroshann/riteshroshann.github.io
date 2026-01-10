@@ -1,4 +1,4 @@
-/* Simple & Elegant Landing Page */
+/* Sophisticated & Elegant Landing Page */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
 * {
@@ -28,81 +28,260 @@ body {
 
 .greeting {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 10vw, 6rem);
+    font-size: clamp(2.5rem, 8vw, 6rem);
     font-weight: 400;
     line-height: 1.1;
     color: #1a1a1a;
     margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .subtitle {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
     color: #666666;
     margin-bottom: 3rem;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
 }
 
 .links {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    max-width: 600px;
+    animation: fadeInUp 0.8s ease-out 0.4s backwards;
 }
 
 .link {
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 500;
     color: #2d2d2d;
     text-decoration: none;
-    padding: 0.75rem 1.5rem;
+    padding: 0.875rem 1.25rem;
     border: 1px solid #e5e5e5;
-    border-radius: 50px;
-    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle gradient overlay on hover */
+.link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.link:hover::before {
+    opacity: 1;
 }
 
 .link:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     border-color: #1a1a1a;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* Active/pressed state for mobile */
+.link:active {
+    transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .container {
-        padding: 1.5rem;
+.icon {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.link:hover .icon {
+    transform: scale(1.1);
+}
+
+/* Icon-specific animations */
+.link:hover .icon {
+    animation: iconBounce 0.6s ease;
+}
+
+@keyframes iconBounce {
+
+    0%,
+    100% {
+        transform: scale(1.1);
     }
 
-    .greeting {
-        font-size: 2.5rem;
-    }
-
-    .subtitle {
-        font-size: 1.125rem;
-    }
-
-    .links {
-        flex-direction: column;
-        width: 100%;
-        max-width: 300px;
-        gap: 1rem;
-    }
-
-    .link {
-        width: 100%;
+    50% {
+        transform: scale(1.15);
     }
 }
 
-@media (max-width: 480px) {
+/* Responsive Design - Tablet */
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem 1.5rem;
+    }
+
     .greeting {
-        font-size: 2rem;
+        font-size: clamp(2rem, 10vw, 3.5rem);
+        margin-bottom: 1.25rem;
+    }
+
+    .subtitle {
+        font-size: clamp(0.95rem, 3vw, 1.25rem);
+        margin-bottom: 2.5rem;
+    }
+
+    .links {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.875rem;
+        max-width: 400px;
+    }
+
+    .link {
+        padding: 0.875rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem 1rem;
+        justify-content: flex-start;
+        padding-top: 25vh;
+    }
+
+    .greeting {
+        font-size: 2.25rem;
+        margin-bottom: 1rem;
     }
 
     .subtitle {
         font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .links {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        max-width: 320px;
+    }
+
+    .link {
+        padding: 1rem 1.25rem;
+        font-size: 0.95rem;
+        border-radius: 14px;
+    }
+
+    .icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Enhanced mobile touch feedback */
+    .link:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .greeting {
+        font-size: 1.875rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .links {
+        max-width: 280px;
+    }
+
+    .link {
+        padding: 0.875rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Landscape mobile optimization */
+@media (max-height: 600px) and (orientation: landscape) {
+    .container {
+        padding-top: 10vh;
+        min-height: auto;
+    }
+
+    .greeting {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .links {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.625rem;
+    }
+}
+
+/* Smooth transitions for all interactive elements */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .link {
+        border-width: 2px;
+    }
+
+    .link:hover {
+        border-color: #000;
     }
 }
